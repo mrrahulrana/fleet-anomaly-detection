@@ -1,0 +1,43 @@
+# Python
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Env
+
+venv/
+.env
+
+# IDE
+
+.vscode/
+.idea/
+
+# Logs
+
+logs/
+*.log
+
+# Models
+
+models/*.pkl
+
+# Data
+
+data/raw/*.csv
+data/processed/*.csv
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# MLFlow
+
+mlruns/
+
+# OS
+
+.DS_Store
+Thumbs.db
