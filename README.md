@@ -49,3 +49,17 @@ Generated attributes:
 - Engine Temperature
 - GPS Coordinates
 - Ignition Status
+
+## Feature Engineering
+
+The platform generates ML-ready telemetry features including:
+
+- Rolling average speed
+- Speed variance
+- RPM variance
+- Temperature change rate
+- Speed change rate
+- RPM change rate
+- Idle indicators
+- High temperature indicators
+- Overspeed indicators
