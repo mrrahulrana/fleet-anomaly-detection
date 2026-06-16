@@ -34,6 +34,18 @@ Telemetry Data
 - MLflow
 - Streamlit
 
-## Status
+## Synthetic Fleet Data Generator
 
-Project initialization completed.
+The project includes a telemetry simulator
+that generates realistic fleet operational data.
+
+Generated attributes:
+
+- Vehicle ID
+- Timestamp
+- Speed
+- Engine RPM
+- Fuel Level
+- Engine Temperature
+- GPS Coordinates
+- Ignition Status
