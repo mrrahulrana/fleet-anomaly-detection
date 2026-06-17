@@ -83,3 +83,22 @@ Model Features:
 - Engine Temperature
 - Rolling Statistics
 - Behavioral Indicators
+
+## Model Evaluation
+
+The anomaly detection model is evaluated against synthetic ground-truth anomaly labels.
+
+Metrics tracked:
+
+- Accuracy
+- Precision
+- Recall
+- F1 Score
+- Confusion Matrix
+
+Generated Reports:
+
+reports/
+├── classification_report.txt
+├── confusion_matrix.csv
+└── metrics.json
