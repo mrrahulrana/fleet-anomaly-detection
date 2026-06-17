@@ -102,3 +102,32 @@ reports/
 ├── classification_report.txt
 ├── confusion_matrix.csv
 └── metrics.json
+
+## Real-Time Prediction API
+
+The trained Isolation Forest model is exposed via FastAPI.
+
+Endpoints:
+
+GET /
+
+Health Check
+
+POST /predict
+
+Predict whether telemetry data represents an anomaly.
+
+Example:
+
+{
+  "speed": 180,
+  "rpm": 6200,
+  "engine_temp": 140
+}
+
+Response:
+
+{
+  "anomaly": true,
+  "anomaly_score": -0.2785
+}
