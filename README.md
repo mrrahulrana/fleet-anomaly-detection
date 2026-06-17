@@ -63,3 +63,23 @@ The platform generates ML-ready telemetry features including:
 - Idle indicators
 - High temperature indicators
 - Overspeed indicators
+
+## Anomaly Detection Model
+
+The system uses an Isolation Forest model to identify abnormal fleet behavior.
+
+Detected anomalies include:
+
+- Overspeeding
+- Excessive RPM
+- Engine overheating
+- Unusual driving patterns
+
+Model Features:
+
+- Speed
+- RPM
+- Fuel Level
+- Engine Temperature
+- Rolling Statistics
+- Behavioral Indicators
