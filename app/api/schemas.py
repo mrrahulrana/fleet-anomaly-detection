@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from typing import List
 
 vehicle_id: Optional[str] = None
 
@@ -39,3 +40,5 @@ class PredictionResponse(BaseModel):
     anomaly: bool
 
     anomaly_score: float
+
+    alerts: list = []

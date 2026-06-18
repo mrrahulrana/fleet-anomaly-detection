@@ -153,3 +153,20 @@ This enables:
 - Auditability
 - Trend monitoring
 - Dashboard reporting
+
+## Real-Time Alert Engine
+
+The platform generates operational alerts from incoming telemetry.
+
+Supported alerts:
+
+- Overspeed
+- Engine Overheat
+- Low Fuel
+- High RPM
+
+Alerts are:
+
+- Persisted to PostgreSQL
+- Exposed through API
+- Logged for operational monitoring

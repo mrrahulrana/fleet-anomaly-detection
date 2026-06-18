@@ -8,6 +8,18 @@ from app.database.repository import (
     save_prediction
 )
 
+from app.alerts.alert_engine import (
+    AlertEngine
+)
+
+from app.notifications.notification_service import (
+    NotificationService
+)
+
+from app.database.repository import (
+    save_alerts
+)
+
 MODEL_FILE = (
     "models/isolation_forest.pkl"
 )
@@ -115,13 +127,35 @@ class PredictionService:
             result
         )
 
+        alerts = AlertEngine.generate_alerts(
+            payload
+        )
+
+        if alerts:
+
+            vehicle_id = payload.get(
+                "vehicle_id",
+                "UNKNOWN"
+            )
+
+            save_alerts(
+                vehicle_id,
+                alerts
+            )
+
+            NotificationService.send_alerts(
+                vehicle_id,
+                alerts
+            )
+
         return {
 
             "anomaly":
             result["anomaly"],
 
             "anomaly_score":
-            result[
-                "anomaly_score"
-            ]
+            result["anomaly_score"],
+
+            "alerts":
+                alerts
         }

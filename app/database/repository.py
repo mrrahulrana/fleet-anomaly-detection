@@ -6,6 +6,10 @@ from app.database.models import (
     AnomalyPrediction
 )
 
+from app.database.models import (
+    AlertEvent
+)
+
 
 def save_prediction(data):
 
@@ -55,6 +59,36 @@ def save_prediction(data):
         )
 
         return prediction
+
+    finally:
+
+        db.close()
+
+def save_alerts(
+        vehicle_id,
+        alerts
+):
+
+    db = SessionLocal()
+
+    try:
+
+        for alert in alerts:
+
+            event = AlertEvent(
+
+                vehicle_id=vehicle_id,
+
+                alert_type=alert["type"],
+
+                severity=alert["severity"],
+
+                message=alert["message"]
+            )
+
+            db.add(event)
+
+        db.commit()
 
     finally:
 
