@@ -1,7 +1,11 @@
 from pydantic import BaseModel
+from typing import Optional
 
+vehicle_id: Optional[str] = None
 
 class TelemetryRequest(BaseModel):
+
+    vehicle_id: str | None = None
 
     speed: float
 

@@ -131,3 +131,25 @@ Response:
   "anomaly": true,
   "anomaly_score": -0.2785
 }
+
+## Prediction Persistence
+
+Every anomaly prediction is stored in PostgreSQL.
+
+Stored attributes:
+
+- Vehicle ID
+- Speed
+- RPM
+- Fuel Level
+- Engine Temperature
+- Anomaly Result
+- Anomaly Score
+- Timestamp
+
+This enables:
+
+- Historical analysis
+- Auditability
+- Trend monitoring
+- Dashboard reporting

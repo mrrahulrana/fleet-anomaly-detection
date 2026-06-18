@@ -4,6 +4,10 @@ from app.models.model_utils import (
     load_model
 )
 
+from app.database.repository import (
+    save_prediction
+)
+
 MODEL_FILE = (
     "models/isolation_forest.pkl"
 )
@@ -56,25 +60,46 @@ class PredictionService:
             [payload]
         )
 
-        data = data[
+        model_input = data[
             FEATURE_COLUMNS
         ]
 
         prediction = (
 
             self.model.predict(
-                data
+                model_input
             )[0]
         )
 
         score = (
 
             self.model.decision_function(
-                data
+                model_input
             )[0]
         )
 
-        return {
+        result = {
+
+            "vehicle_id":
+            payload.get(
+                "vehicle_id"
+            ),
+
+            "speed":
+            payload["speed"],
+
+            "rpm":
+            payload["rpm"],
+
+            "fuel_level":
+            payload[
+                "fuel_level"
+            ],
+
+            "engine_temp":
+            payload[
+                "engine_temp"
+            ],
 
             "anomaly":
             prediction == -1,
@@ -84,4 +109,19 @@ class PredictionService:
                 float(score),
                 4
             )
+        }
+
+        save_prediction(
+            result
+        )
+
+        return {
+
+            "anomaly":
+            result["anomaly"],
+
+            "anomaly_score":
+            result[
+                "anomaly_score"
+            ]
         }
