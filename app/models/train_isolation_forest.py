@@ -4,6 +4,13 @@ from sklearn.ensemble import IsolationForest
 
 from app.models.model_utils import save_model
 
+from app.mlops.mlflow_manager import (
+    setup_mlflow,
+    start_run,
+    log_params,
+    log_metrics,
+    log_model
+)
 
 INPUT_FILE = "data/processed/features.csv"
 
@@ -210,56 +217,97 @@ def print_summary(
 
 def main():
 
-    print(
-        "\nLoading engineered features..."
-    )
+    setup_mlflow()
 
-    dataframe = load_features()
+    with start_run(
+        "isolation-forest-v1"
+    ) as run:
 
-    X = prepare_training_data(
-        dataframe
-    )
+        print(
+            "\nLoading features..."
+        )
 
-    print(
-        "\nTraining Isolation Forest..."
-    )
+        dataframe = load_features()
 
-    model = train_model(
-        X
-    )
+        X = prepare_training_data(
+            dataframe
+        )
 
-    save_model(
-        model,
-        MODEL_FILE
-    )
+        print(
+            "\nTraining model..."
+        )
 
-    dataframe = score_anomalies(
+        model = train_model(X)
 
-        model,
+        save_model(
+            model,
+            MODEL_FILE
+        )
 
-        X,
+        dataframe = score_anomalies(
 
-        dataframe
-    )
+            model,
 
-    save_predictions(
-        dataframe
-    )
+            X,
 
-    anomalies = save_only_anomalies(
-        dataframe
-    )
+            dataframe
+        )
 
-    print_summary(
+        save_predictions(
+            dataframe
+        )
 
-        dataframe,
+        anomalies = save_only_anomalies(
+            dataframe
+        )
 
-        anomalies
-    )
+        anomaly_count = len(
+            anomalies
+        )
 
-    print(
-        "\nTraining pipeline completed successfully."
-    )
+        anomaly_ratio = (
+
+            anomaly_count
+            /
+            len(dataframe)
+        )
+
+        log_params({
+
+            "algorithm":
+            "IsolationForest",
+
+            "contamination":
+            0.02,
+
+            "n_estimators":
+            100
+        })
+
+        log_metrics({
+
+            "anomaly_count":
+            anomaly_count,
+
+            "anomaly_ratio":
+            anomaly_ratio
+        })
+
+        log_model(
+            model
+        )
+
+        print_summary(
+
+            dataframe,
+
+            anomalies
+        )
+
+        print(
+            f"\nMLflow Run ID:"
+            f" {run.info.run_id}"
+        )
 
 
 if __name__ == "__main__":

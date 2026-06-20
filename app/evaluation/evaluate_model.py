@@ -3,19 +3,20 @@ import json
 import pandas as pd
 
 from sklearn.metrics import (
-
-    classification_report,
-
-    confusion_matrix,
-
+    accuracy_score,
     precision_score,
-
     recall_score,
-
     f1_score,
-
-    accuracy_score
+    confusion_matrix,
+    classification_report
 )
+
+from app.mlops.mlflow_manager import (
+    setup_mlflow,
+    start_run,
+    log_metrics
+)
+
 
 INPUT_FILE = (
     "data/anomalies/anomaly_predictions.csv"
@@ -77,7 +78,8 @@ def evaluate(df):
 
     report = classification_report(
         y_true,
-        y_pred
+        y_pred,
+        zero_division=0
     )
 
     return {
@@ -110,6 +112,8 @@ def evaluate(df):
 
 def save_results(results):
 
+    # Save classification report
+
     with open(
         REPORT_FILE,
         "w"
@@ -120,6 +124,8 @@ def save_results(results):
                 "classification_report"
             ]
         )
+
+    # Save confusion matrix
 
     cm_df = pd.DataFrame(
 
@@ -141,6 +147,8 @@ def save_results(results):
     cm_df.to_csv(
         CONFUSION_FILE
     )
+
+    # Save metrics JSON
 
     metrics = {
 
@@ -224,20 +232,45 @@ def main():
 
     df = load_predictions()
 
-    results = evaluate(
-        df
-    )
+    setup_mlflow()
 
-    save_results(
-        results
-    )
+    with start_run(
+        "model-evaluation"
+    ):
 
-    print_results(
-        results
+        results = evaluate(
+            df
+        )
+
+        log_metrics({
+
+            "accuracy":
+            results["accuracy"],
+
+            "precision":
+            results["precision"],
+
+            "recall":
+            results["recall"],
+
+            "f1_score":
+            results["f1_score"]
+        })
+
+        save_results(
+            results
+        )
+
+        print_results(
+            results
+        )
+
+    print(
+        "\nEvaluation completed successfully."
     )
 
     print(
-        "\nReports generated successfully."
+        "\nReports saved under reports/"
     )
 
 

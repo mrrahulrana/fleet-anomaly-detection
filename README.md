@@ -191,17 +191,43 @@ streamlit run streamlit_app/dashboard.py
 ```mermaid
 flowchart LR
 
+flowchart LR
+
 A[Telemetry Generator]
+
 --> B[Feature Engineering]
 
 B --> C[Isolation Forest]
 
-C --> D[FastAPI Service]
+C --> D[MLflow Tracking]
 
-D --> E[PostgreSQL]
+D --> E[Model Registry]
 
-D --> F[Alert Engine]
+E --> F[FastAPI API]
 
-E --> G[Streamlit Dashboard]
-F --> G
+F --> G[PostgreSQL]
+
+F --> H[Alert Engine]
+
+G --> I[Streamlit Dashboard]
+
+H --> I
 ```
+
+## MLOps
+
+The project uses MLflow for:
+
+- Experiment Tracking
+- Parameter Logging
+- Metric Tracking
+- Artifact Management
+- Model Registry
+
+Launch MLflow:
+
+mlflow ui
+
+URL:
+
+http://localhost:5000
