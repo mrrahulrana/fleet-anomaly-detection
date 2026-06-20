@@ -156,6 +156,5 @@ class PredictionService:
             "anomaly_score":
             result["anomaly_score"],
 
-            "alerts":
-                alerts
+            "alerts":alerts
         }

@@ -12,3 +12,5 @@ streamlit
 mlflow
 matplotlib
 seaborn
+plotly
+graphviz

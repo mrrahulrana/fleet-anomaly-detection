@@ -170,3 +170,38 @@ Alerts are:
 - Persisted to PostgreSQL
 - Exposed through API
 - Logged for operational monitoring
+
+## Fleet Operations Dashboard
+
+A Streamlit dashboard provides real-time operational visibility.
+
+Features:
+
+- Prediction Metrics
+- Anomaly Trends
+- Alert Monitoring
+- Speed Analytics
+- Temperature Analytics
+- Vehicle Insights
+
+Launch:
+
+streamlit run streamlit_app/dashboard.py
+
+```mermaid
+flowchart LR
+
+A[Telemetry Generator]
+--> B[Feature Engineering]
+
+B --> C[Isolation Forest]
+
+C --> D[FastAPI Service]
+
+D --> E[PostgreSQL]
+
+D --> F[Alert Engine]
+
+E --> G[Streamlit Dashboard]
+F --> G
+```
