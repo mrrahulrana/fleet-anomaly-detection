@@ -10,7 +10,7 @@ EXPERIMENT_NAME = (
 def setup_mlflow():
 
     mlflow.set_tracking_uri(
-        "file:./mlruns"
+        "sqlite:///mlflow.db"
     )
 
     mlflow.set_experiment(

@@ -39,6 +39,7 @@ data/processed/*.csv
 # MLFlow
 
 mlruns/
+mlflow.db
 
 # OS
 

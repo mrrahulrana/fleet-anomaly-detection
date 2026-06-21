@@ -191,8 +191,6 @@ streamlit run streamlit_app/dashboard.py
 ```mermaid
 flowchart LR
 
-flowchart LR
-
 A[Telemetry Generator]
 
 --> B[Feature Engineering]
